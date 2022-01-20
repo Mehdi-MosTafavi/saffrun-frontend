@@ -2,6 +2,7 @@ import React from "react";
 import {
   Card,
   CardHeader,
+  CardBody,
   CardTitle,
   Table,
   UncontrolledTooltip,
@@ -19,66 +20,87 @@ import userImg from "../../../assets/img/profile/Generic-profile-picture.jpg.web
 class DispatchedOrders extends React.Component {
   render() {
     return (
-      <Card style={{height:"460px"}}>
+      <Card style={{ height: "460px" }}>
         <CardHeader>
           <CardTitle>{this.props.cardName}</CardTitle>
         </CardHeader>
-        <Table
-          responsive
-          className="dashboard-table table-hover-animation mb-0 mt-1"
-        >
-          <thead>
-            <tr>
-              {this.props.header.map((headerName) => (
-                <th>{headerName}</th>
-              ))}
-              {/* <th>نوبت گیرنده</th>
+        {this.props.tBody.length == !0 ? (
+          <Table
+            responsive
+            className="dashboard-table table-hover-animation mb-0 mt-1"
+          >
+            <thead>
+              <tr>
+                {this.props.header.map((headerName) => (
+                  <th>{headerName}</th>
+                ))}
+                {/* <th>نوبت گیرنده</th>
               <th>مکان</th>
               <th>تاریخ و زمان</th>
               <th>مدت</th> */}
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.tBody.map((row) => (
-              <tr>
-                <td className="p-1">
-                  <ul className="list-unstyled users-list m-0 d-flex">
-                    { row["list_participants"]&& row["list_participants"].map((R) => (
-                      <li className="avatar pull-up">
-                        <img
-                          src={
-                            "id" in R["image"]
-                              ? "http://127.0.0.1:8000" + R["image"]["image"]["thumbnail"]
-                              : userImg 
-                          }
-                          alt="avatar"
-                          height="30"
-                          width="30"
-                          id={"id"+R["first_name"]}
-                        />
-                        <UncontrolledTooltip
-                          placement="bottom"
-                          target={"id"+R["first_name"]}
-                        >
-                          {R["first_name"]}
-                          {" "}
-                          {R["last_name"]}
-                        </UncontrolledTooltip>
-                      </li>
-                    ))}
-                  </ul>
-                  {row["title"]}
-                </td>
-                <td>{row["province"]}</td>
-                <td>
-                  {new Date(row["start_datetime"]).toLocaleDateString("fa-IR")} <br/> {new Date(row["start_datetime"]).toLocaleTimeString("en-GB")}
-                </td>
-                <td>{parseInt(((new Date(row["end_datetime"])-new Date(row["start_datetime"]))/60000)).toLocaleString()} دقیقه</td>
-                {row["participant_count"] && <td>{row["participant_count"]}</td>}
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {this.props.tBody.map((row) => (
+                <tr>
+                  <td className="p-1">
+                    <ul className="list-unstyled users-list m-0 d-flex">
+                      {row["list_participants"] &&
+                        row["list_participants"].map((R) => (
+                          <li className="avatar pull-up">
+                            <img
+                              src={
+                                "id" in R["image"]
+                                  ? "http://127.0.0.1:8000" +
+                                    R["image"]["image"]["thumbnail"]
+                                  : userImg
+                              }
+                              alt="avatar"
+                              height="30"
+                              width="30"
+                              id={"id" + R["first_name"]}
+                            />
+                            <UncontrolledTooltip
+                              placement="bottom"
+                              target={"id" + R["first_name"]}
+                            >
+                              {R["first_name"]} {R["last_name"]}
+                            </UncontrolledTooltip>
+                          </li>
+                        ))}
+                    </ul>
+                    {row["title"]}
+                  </td>
+                  <td>{row["province"]}</td>
+                  <td>
+                    {new Date(row["start_datetime"]).toLocaleDateString(
+                      "fa-IR"
+                    )}{" "}
+                    <br />{" "}
+                    {new Date(row["start_datetime"]).toLocaleTimeString(
+                      "en-GB"
+                    )}
+                  </td>
+                  <td>
+                    {parseInt(
+                      (new Date(row["end_datetime"]) -
+                        new Date(row["start_datetime"])) /
+                        60000
+                    ).toLocaleString()}{" "}
+                    دقیقه
+                  </td>
+                  {row["participant_count"] && (
+                    <td>{row["participant_count"]}</td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        ) : (
+          <CardBody className="justify-content-center d-flex">
+            <p style={{ marginTop: "30px" }}>آیتمی جهت نمایش وجود ندارد</p>
+          </CardBody>
+        )}
       </Card>
     );
   }

@@ -341,6 +341,7 @@ class UsersList extends React.Component {
                         enableRtl={context.state.direction === "rtl"}
                         rowStyle={{ borderBlockColor: "#ff9f43" }}
                         headerStyle={{ backgroundColor: "#ff9f43" }}
+                        localeText= {{noRowsToShow: 'دنبال کننده ای جهت نمایش یافت نشد'}}
                       />
                     )}
                   </ContextLayout.Consumer>

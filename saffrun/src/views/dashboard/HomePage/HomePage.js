@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "reactstrap";
-import avatar1 from "../../../assets/img/portrait/small/avatar-s-5.jpg";
-import avatar2 from "../../../assets/img/portrait/small/avatar-s-7.jpg";
+
 import RevenueChart from "../../ui-elements/cards/analytics/Revenue";
 import SupportTracker from "./../../ui-elements/cards/analytics/SupportTracker";
 import { Star, Users, Command, MessageCircle, Check } from "react-feather";
@@ -95,7 +94,7 @@ class Home extends React.Component {
                   </div> */}
                 </div>
                 <hr className="my-2" />
-                <div className="d-flex flex-column ">
+                {this.state.last_comments.length ==!0 ? <div className="d-flex flex-column ">
                   <ul
                     className=" activity-timeline timeline-left list-unstyled"
                     style={{ textAlign: "right" }}
@@ -147,7 +146,8 @@ class Home extends React.Component {
                     <ChevronsRight size={15} />
                     مشاهده همه
                   </Button>
-                </div>
+                </div> : "پیامی برای نمایش دادن یافت نشد" }
+                
               </CardBody>
             </Card>
           </Col>

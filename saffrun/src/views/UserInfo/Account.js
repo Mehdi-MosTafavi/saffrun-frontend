@@ -191,7 +191,7 @@ class UserAccountTab extends React.Component {
                     type="text"
                     value={this.props.userData["username"]}
                     id="username"
-                    placeholder="Username"
+                    
                     onChange={this.props.updateData}
                   />
                 </FormGroup>
@@ -208,7 +208,7 @@ class UserAccountTab extends React.Component {
                     type="text"
                     value={this.props.userData["email"]}
                     id="email"
-                    placeholder="Email"
+                   
                     onChange={this.props.updateData}
                   />
                 </FormGroup>
@@ -226,7 +226,7 @@ class UserAccountTab extends React.Component {
                     type="text"
                     value={this.props.userData["first_name"]}
                     id="first_name"
-                    placeholder="Name"
+                 
                     onChange={this.props.updateData}
                   />
                 </FormGroup>
@@ -249,7 +249,7 @@ class UserAccountTab extends React.Component {
                   ></Input>
                 </FormGroup>
               </Col>
-              <Col md="6" sm="12">
+              {/* <Col md="6" sm="12">
                 <FormGroup>
                   <Label for="company">شماره تلفن ثابت</Label>
                   <InputMask
@@ -259,7 +259,7 @@ class UserAccountTab extends React.Component {
                     // placeholder="شماره تلفن"
                   />
                 </FormGroup>
-              </Col>
+              </Col> */}
               <Col md="6" sm="12">
                 <FormGroup>
                   <Label for="company"> شماره تلفن همراه</Label>
@@ -300,7 +300,7 @@ class UserAccountTab extends React.Component {
                           value={this.state.currPass}
                           id="password"
                           required
-                          placeholder="رمز قبلی"
+             
                           onChange={(e) =>
                             this.setState({ currPass: e.target.value })
                           }
@@ -316,7 +316,7 @@ class UserAccountTab extends React.Component {
                           name="newpassword"
                           id="newpassword"
                           required
-                          placeholder="رمز جدید"
+                   
                           onChange={(e) =>
                             this.setState({ newPass: e.target.value })
                           }
@@ -331,7 +331,6 @@ class UserAccountTab extends React.Component {
                           type="text"
                           value={this.state.repPass}
                           id="RepPass"
-                          placeholder="تکرار رمز"
                           required
                           invalid={this.state.repPass !== this.state.newPass}
                           onChange={(e) =>
