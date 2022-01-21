@@ -90,6 +90,18 @@ class Revenue extends React.Component {
         axisBorder: {
           show: false,
         },
+        tickAmount: 4,
+        labels: {
+          show: true,
+          rotate: 0,
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Dana-FaNum, Arial, sans-serif",
+            fontWeight: 400,
+            // cssClass: "apexcharts-yaxis-label",
+          },
+        },
         tickPlacement: "on",
       },
       yaxis: {

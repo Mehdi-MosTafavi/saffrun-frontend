@@ -25,6 +25,8 @@ import axios from "axios";
 import { history } from "../../history";
 import isAuthenticated from "../../utility/authenticated";
 import urlDomain from "../../utility/urlDomain";
+import imgUrlDomain from "../../utility/imgUrlDomain"
+
 import { toast } from "react-toastify";
 // import { Avatar } from 'react-native-elements';
 
@@ -120,7 +122,7 @@ class UserAccountTab extends React.Component {
     if (this.props.userData["avatar"]["image"] || this.state.uploadedUrl ) {
       return this.state.isUploadedImg
         ? this.state.uploadedUrl
-        : "http://127.0.0.1:8000" +
+        : imgUrlDomain +
             this.props.userData["avatar"]["image"]["thumbnail"];
     } else {
       return userImg;
