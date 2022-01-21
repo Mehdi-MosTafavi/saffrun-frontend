@@ -39,6 +39,18 @@ class ApexLineCharts extends React.Component {
           "بهمن",
           "اسفند",
         ],
+        tickAmount: 4,
+        labels: {
+          show: true,
+          rotate: 0,
+          style: {
+            colors: [],
+            fontSize: "12px",
+            fontFamily: "Dana-FaNum, Arial, sans-serif",
+            fontWeight: 400,
+            // cssClass: "apexcharts-yaxis-label",
+          },
+        },
       },
       yaxis: {
         fontFamily: "Dana-FaNum",

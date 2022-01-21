@@ -17,6 +17,8 @@ import avatar6 from "../../../assets/img/portrait/small/avatar-s-2.jpg";
 import avatar7 from "../../../assets/img/portrait/small/avatar-s-3.jpg";
 import avatar8 from "../../../assets/img/portrait/small/avatar-s-4.jpg";
 import userImg from "../../../assets/img/profile/Generic-profile-picture.jpg.webp";
+import imgUrlDomain from "../../../utility/imgUrlDomain";
+
 class DispatchedOrders extends React.Component {
   render() {
     const difference2Date = (startDate, endDate) => {
@@ -65,7 +67,7 @@ class DispatchedOrders extends React.Component {
                             <img
                               src={
                                 "id" in R["image"]
-                                  ? "http://127.0.0.1:8000" +
+                                  ? imgUrlDomain +
                                     R["image"]["image"]["thumbnail"]
                                   : userImg
                               }
