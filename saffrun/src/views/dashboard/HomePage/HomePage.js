@@ -94,7 +94,7 @@ class Home extends React.Component {
                   </div> */}
                 </div>
                 <hr className="my-2" />
-                {this.state.last_comments.length ==!0 ? <div className="d-flex flex-column ">
+                {this.state.last_comments.length >0 ? <div style={{height:250}} className="d-flex  flex-column ">
                   <ul
                     className=" activity-timeline timeline-left list-unstyled"
                     style={{ textAlign: "right" }}
@@ -140,7 +140,7 @@ class Home extends React.Component {
                     onClick={() => {
                       history.push("/received-comments");
                     }}
-                    className="align-self-end btn-block shadow"
+                    className=" mt-auto btn-block shadow"
                     color="primary"
                   >
                     <ChevronsRight size={15} />

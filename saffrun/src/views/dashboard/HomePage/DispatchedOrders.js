@@ -19,12 +19,26 @@ import avatar8 from "../../../assets/img/portrait/small/avatar-s-4.jpg";
 import userImg from "../../../assets/img/profile/Generic-profile-picture.jpg.webp";
 class DispatchedOrders extends React.Component {
   render() {
+    const difference2Date = (startDate, endDate) => {
+      let diffInMilliSeconds = Math.abs(endDate - startDate) / 1000;
+      // calculate days
+      const days = Math.floor(diffInMilliSeconds / 86400);
+      diffInMilliSeconds -= days * 86400;
+      // calculate hours
+      const hours = Math.floor(diffInMilliSeconds / 3600) % 24;
+      diffInMilliSeconds -= hours * 3600;
+      // calculate minutes
+      const minutes = Math.floor(diffInMilliSeconds / 60) % 60;
+      diffInMilliSeconds -= minutes * 60;
+      return `${days}روز, ${hours}ساعت, ${minutes}دقیقه`;
+    };
     return (
       <Card style={{ height: "460px" }}>
         <CardHeader>
           <CardTitle>{this.props.cardName}</CardTitle>
         </CardHeader>
-        {this.props.tBody.length == !0 ? (
+        {console.log(this.props.tBody.length)}
+        {this.props.tBody.length > 0 ? (
           <Table
             responsive
             className="dashboard-table table-hover-animation mb-0 mt-1"
@@ -79,18 +93,24 @@ class DispatchedOrders extends React.Component {
                     <br />{" "}
                     {new Date(row["start_datetime"]).toLocaleTimeString(
                       "en-GB"
-                    )}
+                    ).substring(0,5)}
                   </td>
                   <td>
-                    {parseInt(
-                      (new Date(row["end_datetime"]) -
-                        new Date(row["start_datetime"])) /
-                        60000
-                    ).toLocaleString()}{" "}
-                    دقیقه
+                    {row["list_participants"]
+                      ? parseInt(
+                          (new Date(row["end_datetime"]) -
+                            new Date(row["start_datetime"])) /
+                            60000
+                        )+ " دقیقه "
+                      : difference2Date(
+                          new Date(row["start_datetime"]),
+                          new Date(row["end_datetime"])
+                        )}
                   </td>
-                  {row["participant_count"] && (
-                    <td>{row["participant_count"]}</td>
+                  {!row["list_participants"] && (
+                    <td>
+                      {row["participant_count"] && row["participant_count"]}
+                    </td>
                   )}
                 </tr>
               ))}

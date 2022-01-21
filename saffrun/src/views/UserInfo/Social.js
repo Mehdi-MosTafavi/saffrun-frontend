@@ -334,9 +334,10 @@ class UsersList extends React.Component {
                         colResizeDefault={"shift"}
                         animateRows={true}
                         // floatingFilter={true}
-                        pagination={true}
-                        pivotPanelShow="always"
-                        paginationPageSize={pageSize}
+                        // pagination={false}
+                        suppressPaginationPanel = {false}
+                        // pivotPanelShow="always"
+                        // paginationPageSize={pageSize}
                         resizable={true}
                         enableRtl={context.state.direction === "rtl"}
                         rowStyle={{ borderBlockColor: "#ff9f43" }}

@@ -117,7 +117,7 @@ class UserAccountTab extends React.Component {
   };
 
   handleAvatar = () => {
-    if (this.props.userData["avatar"]["image"]) {
+    if (this.props.userData["avatar"]["image"] || this.state.uploadedUrl ) {
       return this.state.isUploadedImg
         ? this.state.uploadedUrl
         : "http://127.0.0.1:8000" +
