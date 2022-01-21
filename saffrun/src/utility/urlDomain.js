@@ -1,3 +1,3 @@
-let urlDomain = "http://localhost:8000/api";
+let urlDomain = "https://saffrun.mehdi-mostafavi.ir/api";
 
 export default urlDomain;

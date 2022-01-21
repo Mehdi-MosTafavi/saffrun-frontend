@@ -29,6 +29,7 @@ import axios from "axios";
 import theme from "../../../assets/datePickerTheme/theme";
 import { history } from "../../../history";
 import isAuthenticated from "../../../utility/authenticated";
+import ComponentSpinner from "../../../components/@vuexy/spinner/Loading-spinner";
 
 class EditEvent extends React.Component {
   state = {
@@ -53,6 +54,7 @@ class EditEvent extends React.Component {
     successAlert: false,
     errorAlert: false,
     editDate: false,
+    submitBtnDisabled: false,
     initialStartDate: "",
     initialEndDate: "",
     initialImages: [],
@@ -276,7 +278,7 @@ class EditEvent extends React.Component {
       category: jobCategory.value,
       price,
       images: imageIds,
-      owner : this.props.ownerId
+      owner: this.props.ownerId,
     };
     return event;
   };
@@ -298,7 +300,9 @@ class EditEvent extends React.Component {
     }
   };
   formSubmitted = async () => {
+    this.setState({ submitBtnDisabled: true });
     let eventPost = await this.handleServerRequests();
+    this.setState({ submitBtnDisabled: false });
     if (eventPost) this.handleAlert("successAlert", true);
     else this.handleAlert("errorAlert", true);
   };
@@ -343,7 +347,14 @@ class EditEvent extends React.Component {
     return this.state.initialImages.map((item) => item.image.full_size);
   };
   stepsGenerator() {
-    let { description, title, discount, price, editDate } = this.state;
+    let {
+      description,
+      title,
+      discount,
+      price,
+      editDate,
+      submitBtnDisabled,
+    } = this.state;
     let jobSelect = this.state.jobCategory ? this.state.jobCategory.value : "";
     return [
       {
@@ -559,13 +570,22 @@ class EditEvent extends React.Component {
       },
       {
         title: "۳",
-        buttonDisabled: false,
-        content: this.state.title !== "" && (
-          <DropzoneBasic
-            imageUrlList={this.initialImagesGenerator()}
-            imageUploaded={this.imageUploaded}
-            files={this.state.files}
-          />
+        buttonDisabled: submitBtnDisabled,
+        content: submitBtnDisabled ? (
+          <React.Fragment>
+            <div style={{ height: "160px" }}></div>
+            <div>
+              <ComponentSpinner customClass="without-margin" />
+            </div>
+          </React.Fragment>
+        ) : (
+          this.state.title !== "" && (
+            <DropzoneBasic
+              imageUrlList={this.initialImagesGenerator()}
+              imageUploaded={this.imageUploaded}
+              files={this.state.files}
+            />
+          )
         ),
       },
     ];

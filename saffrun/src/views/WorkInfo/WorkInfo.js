@@ -23,6 +23,7 @@ import { history } from "./../../history";
 import urlDomain from "./../../utility/urlDomain";
 import { Edit } from "react-feather";
 import { toast } from "react-toastify";
+import loadInitialImages from "../../utility/loadInitialImages";
 class workInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -50,16 +51,22 @@ class workInfo extends React.Component {
     let workData = await axios.get(`${urlDomain}/profile/web/business/`, {
       headers: { Authorization: token },
     });
+
     this.loadCategories(category.data);
     this.showDateTime(workData.data["establishment_date"]);
+    await this.loadTempFile(this.extractUrl(workData.data["images"]));
     this.setState({
       workData: workData.data,
       loadSpinner: false,
       selectedCategory: this.standardCategoryFormat(workData.data["category"]),
-      images: this.extractUrl(workData.data["images"]),
     });
-
     // this.extractUrl(workData.data["images"]);
+  };
+
+  loadTempFile = async (imgUrls) => {
+    let images = await loadInitialImages(imgUrls);
+    this.setState({ images });
+    console.log(images);
   };
   showDateTime = (establishment_date) => {
     if (!establishment_date) this.setState({ showDate: false });
@@ -180,7 +187,9 @@ class workInfo extends React.Component {
       ...this.state.workData,
       category: this.state.workData["category"]["id"],
       images: imageIds,
-      phone_number: this.state.workData["phone_number"] ? this.state.workData["phone_number"].replace(/\s/g, "") : null,
+      phone_number: this.state.workData["phone_number"]
+        ? this.state.workData["phone_number"].replace(/\s/g, "")
+        : null,
       establishment_date: this.state.workData["establishment_date"]
         ? this.acceptableDateFormat(this.state.workData["establishment_date"])
         : null,
