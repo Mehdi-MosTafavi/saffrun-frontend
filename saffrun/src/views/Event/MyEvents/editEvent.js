@@ -23,7 +23,7 @@ import { Check } from "react-feather";
 import Select from "react-select";
 import DropzoneBasic from "../../../components/@vuexy/dropZone/dropZone";
 import { DatePicker, RangeDatePicker } from "jalali-react-datepicker";
-import "../EventCreation/input-datepicker.css";
+import "./input-datepicker3.css";
 import "../../../assets/scss/plugins/extensions/sweet-alerts.scss";
 import axios from "axios";
 import theme from "../../../assets/datePickerTheme/theme";

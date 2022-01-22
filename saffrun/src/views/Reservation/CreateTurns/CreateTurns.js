@@ -21,7 +21,7 @@ import classnames from "classnames";
 import TimeField from "react-simple-timefield";
 import axios from "axios";
 import urlDomain from "../../../utility/urlDomain";
-import "../../Event/EventCreation/input-datepicker.css";
+import "./input-datepicker2.css";
 import theme from "../../../assets/datePickerTheme/theme";
 import colWidthes from "./dayColumnsWidth";
 import { object } from "prop-types";
