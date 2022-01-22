@@ -344,7 +344,9 @@ class EditEvent extends React.Component {
     );
   };
   initialImagesGenerator = () => {
-    return this.state.initialImages.map((item) => item.image.full_size);
+    return this.state.initialImages.map((item) =>
+      item.image.full_size.replace("http", "https")
+    );
   };
   stepsGenerator() {
     let {

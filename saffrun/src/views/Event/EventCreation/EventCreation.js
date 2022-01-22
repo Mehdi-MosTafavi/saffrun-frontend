@@ -305,7 +305,7 @@ class EventCreation extends React.Component {
               </FormGroup>
               <FormGroup>
                 <Label>
-                  عنوان شغل
+                  دسته‌بندی رویداد
                   <span style={{ color: "red" }}>*</span>
                 </Label>
                 <Select
@@ -323,7 +323,13 @@ class EventCreation extends React.Component {
                 <Label> تخفیف </Label>
                 <Input
                   value={this.state.discount}
-                  onChange={(e) => this.setState({ discount: e.target.value })}
+                  min={0}
+                  max={100}
+                  pattern="\d*"
+                  onChange={(e) => {
+                    if (e.target.value.length <= 3)
+                      this.setState({ discount: e.target.value });
+                  }}
                   type="number"
                   placeholder="مقدار تخفیف را به درصد وارد کنید"
                 />
@@ -340,7 +346,11 @@ class EventCreation extends React.Component {
                 <span style={{ color: "red" }}>*</span>
                 <Input
                   value={this.state.price}
-                  onChange={(e) => this.setState({ price: e.target.value })}
+                  pattern="\d*"
+                  onChange={(e) => {
+                    if (e.target.value.length <= 8)
+                      this.setState({ price: e.target.value });
+                  }}
                   type="number"
                   placeholder="هزینه رویداد را به تومان وارد کنید"
                 />

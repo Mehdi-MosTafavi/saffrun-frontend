@@ -23,7 +23,8 @@ import { history } from "./../../history";
 import urlDomain from "./../../utility/urlDomain";
 import { Edit } from "react-feather";
 import { toast } from "react-toastify";
-import loadInitialImages from "../../utility/loadInitialImages";
+import ComponentSpinner from "../../components/@vuexy/spinner/Loading-spinner";
+
 class workInfo extends React.Component {
   constructor(props) {
     super(props);
@@ -38,6 +39,7 @@ class workInfo extends React.Component {
       selectedCategory: {},
       showDate: true,
       images: [],
+      submitBtnClicked: false,
     };
   }
   componentDidMount = async () => {
@@ -54,27 +56,22 @@ class workInfo extends React.Component {
 
     this.loadCategories(category.data);
     this.showDateTime(workData.data["establishment_date"]);
-    await this.loadTempFile(this.extractUrl(workData.data["images"]));
     this.setState({
       workData: workData.data,
       loadSpinner: false,
       selectedCategory: this.standardCategoryFormat(workData.data["category"]),
+      images: this.extractUrl(workData.data["images"]),
     });
     // this.extractUrl(workData.data["images"]);
   };
 
-  loadTempFile = async (imgUrls) => {
-    let images = await loadInitialImages(imgUrls);
-    this.setState({ images });
-    console.log(images);
-  };
   showDateTime = (establishment_date) => {
     if (!establishment_date) this.setState({ showDate: false });
   };
   extractUrl = (imagesObj) => {
     let images = [...this.state.images];
     imagesObj.forEach((img) => {
-      images.push(img["image"]["full_size"]);
+      images.push(img["image"]["full_size"].replace("http", "https"));
     });
     return images;
   };
@@ -181,6 +178,7 @@ class workInfo extends React.Component {
       });
       return;
     }
+    this.setState({ submitBtnClicked: true });
     let token = localStorage.getItem("access");
     let imageIds = await this.uploadImage();
     let workDataToPut = {
@@ -203,11 +201,16 @@ class workInfo extends React.Component {
         headers: { Authorization: token },
       }
     );
+    this.setState({ submitBtnClicked: false });
     if (x.status === 200) {
       this.notifySuccess();
     } else {
       this.notifyError();
     }
+  };
+  btnSubmitText = () => {
+    let { submitBtnClicked } = this.state;
+    return submitBtnClicked ? "در حال آپلود ..." : "اعمال تغییرات";
   };
   render() {
     return (
@@ -420,8 +423,10 @@ class workInfo extends React.Component {
                   color="primary"
                   onClick={this.putData}
                   style={{ marginTop: 20 }}
+                  disabled={this.state.submitBtnClicked}
+                  outline
                 >
-                  اعمال تغییرات
+                  {this.btnSubmitText()}
                 </Button>
               </Col>
             </Row>
