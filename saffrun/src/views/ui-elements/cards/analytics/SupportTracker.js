@@ -76,7 +76,7 @@ class SupportTracker extends React.Component {
               <hr></hr>
 
               <h1 className="font-large-2 text-bold-600 mt-2 mb-0">
-                {this.props.rate === null ? 0 : this.props.rate}
+                {this.props.rate === null ? 0 : parseFloat(this.props.rate)}
               </h1>
               <div className="float-left">
                 <Star size="15" className="warning" />
